@@ -14,8 +14,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.testcontainers.shaded.org.hamcrest.MatcherAssert.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testcontainers.shaded.org.hamcrest.MatcherAssert.assertThat;
 
 
 @Slf4j
@@ -28,7 +29,7 @@ class PostServiceImplTest {
     private static PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer("postgres")
             .withDatabaseName("foo")
             .withUsername("foo")
-            .withPassword("secret")     ;
+            .withPassword("secret");
 
     @DynamicPropertySource
     static void dataSourceProperties(DynamicPropertyRegistry registry) {
@@ -49,6 +50,12 @@ class PostServiceImplTest {
         Post post = new Post();
         post.setId("as");
         repository.save(post);
-        assertDoesNotThrow(() -> postService.getPost("as"));
+        assertDoesNotThrow(
+                () -> {
+                    var postDto = postService.getPost("as");
+                    assertEquals("as", postDto.getId());
+                    return postDto;
+                }
+        );
     }
 }

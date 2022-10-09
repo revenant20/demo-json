@@ -16,7 +16,7 @@ public class PostServiceImpl implements PostService {
         return repository.findById(id)
                 .map(post -> {
                     PostDto postDto = new PostDto();
-                    postDto.setId(postDto.getId());
+                    postDto.setId(post.getId());
                     return postDto;
                 })
                 .orElseThrow();
