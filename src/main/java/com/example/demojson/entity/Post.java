@@ -3,7 +3,9 @@ package com.example.demojson.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
@@ -15,6 +17,10 @@ public class Post {
 
     @Id
     String id;
+
+    @Column(columnDefinition = "jsonb")
+    @Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
+    String someData;
 
     @Override
     public boolean equals(Object o) {

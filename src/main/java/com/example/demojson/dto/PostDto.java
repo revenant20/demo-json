@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class PostDto {
     String id;
+    String json;
 }

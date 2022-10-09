@@ -49,11 +49,14 @@ class PostServiceImplTest {
         assertThat("", postgresqlContainer.isRunning());
         Post post = new Post();
         post.setId("as");
+        post.setSomeData("{}");
         repository.save(post);
         assertDoesNotThrow(
                 () -> {
                     var postDto = postService.getPost("as");
                     assertEquals("as", postDto.getId());
+                    assertEquals("{}", postDto.getJson());
+                    log.info("{}", postDto);
                     return postDto;
                 }
         );

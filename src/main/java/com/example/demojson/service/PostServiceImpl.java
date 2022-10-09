@@ -17,6 +17,7 @@ public class PostServiceImpl implements PostService {
                 .map(post -> {
                     PostDto postDto = new PostDto();
                     postDto.setId(post.getId());
+                    postDto.setJson(post.getSomeData());
                     return postDto;
                 })
                 .orElseThrow();
