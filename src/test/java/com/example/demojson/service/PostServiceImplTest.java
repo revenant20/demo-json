@@ -45,20 +45,23 @@ class PostServiceImplTest {
     public PostRepository repository;
 
     @Test
-    void test() {
+    void testJsonSaving() {
         assertThat("", postgresqlContainer.isRunning());
         Post post = new Post();
         post.setId("as");
-        post.setSomeData("{}");
-        repository.save(post);
-        assertDoesNotThrow(
-                () -> {
-                    var postDto = postService.getPost("as");
-                    assertEquals("as", postDto.getId());
-                    assertEquals("{}", postDto.getJson());
-                    log.info("{}", postDto);
-                    return postDto;
+        post.setSomeData("""
+                {
+                  "a": "asd"
                 }
-        );
+                """);
+        repository.save(post);
+        assertDoesNotThrow(() -> {
+            var postDto = postService.getPost("as");
+            assertEquals("as", postDto.getId());
+            assertEquals("""
+                    {"a": "asd"}""", postDto.getJson());
+            log.info("{}", postDto);
+            return postDto;
+        });
     }
 }
