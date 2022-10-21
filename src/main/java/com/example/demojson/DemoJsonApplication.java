@@ -7,7 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoJsonApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoJsonApplication.class, args);
+        createSpringApplication().run(args);
+    }
+
+    public static SpringApplication createSpringApplication() {
+        return new SpringApplication(DemoJsonApplication.class);
     }
 
 }
