@@ -16,7 +16,15 @@
         </createTable>
         <insert tableName="post">
             <column name="id" value="qwerty"/>
-            <column name="some_data" value="{}"/>
+            <column name="some_data" value='{"a":"ab","b":"bc"}'/>
+        </insert>
+        <insert tableName="post">
+            <column name="id" value="qwerty1"/>
+            <column name="some_data" value='{"a":"a","b":"b"}'/>
+        </insert>
+        <insert tableName="post">
+            <column name="id" value="qwerty1"/>
+            <column name="some_data" value='{"a":"ac","b":"bc"}'/>
         </insert>
     </changeSet>
 </databaseChangeLog>
