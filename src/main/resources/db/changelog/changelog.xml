@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		file:./dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd" >
+    <changeSet id="1" author="sazonovfm">
+        <createTable tableName="post">
+            <column name="id" type="varchar">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="some_data" type="varchar" />
+        </createTable>
+        <insert tableName="post">
+            <column name="id" value="qwerty"/>
+            <column name="some_data" value="{}"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

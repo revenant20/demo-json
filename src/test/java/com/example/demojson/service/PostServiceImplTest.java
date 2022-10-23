@@ -18,7 +18,6 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testcontainers.shaded.org.hamcrest.MatcherAssert.assertThat;
@@ -57,8 +56,7 @@ class PostServiceImplTest {
         post.setSomeData("""
                 {
                   "a": "asd"
-                }
-                """);
+                }""");
         repository.save(post);
     }
 
@@ -81,7 +79,9 @@ class PostServiceImplTest {
             var postDto = postService.getPostById("as");
             assertEquals("as", postDto.getId());
             assertEquals("""
-                    {"a": "asd"}""", postDto.getJson());
+                    {
+                    "a": "asd"
+                    }""", postDto.getJson());
             log.info("{}", postDto);
         });
     }
