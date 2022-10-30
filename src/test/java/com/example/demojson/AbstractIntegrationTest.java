@@ -1,5 +1,7 @@
 package com.example.demojson;
 
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContextInitializer;
@@ -10,6 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -44,5 +48,10 @@ public class AbstractIntegrationTest {
                     (Map) getProperties()
             ));
         }
+    }
+
+    @Test
+    public void test() {
+        assertTrue(Initializer.postgres.isCreated());
     }
 }
