@@ -29,18 +29,25 @@
     </changeSet>
 
     <changeSet id="2" author="sazonovfm">
-        <createTable tableName="additional_data">
-            <column name="id" type="varchar"/>
-            <column name="name" type="varchar"/>
-            <column name="value" type="varchar"/>
-            <column name="type" type="varchar"/>
+        <createTable tableName="attribute">
+            <column name="entity_id" type="varchar"/>
+            <column name="attr_name" type="varchar"/>
+            <column name="attr_value" type="varchar"/>
         </createTable>
-        <addPrimaryKey tableName="additional_data" columnNames="id, name, type"/>
-        <insert tableName="additional_data">
-            <column name="id" value="test"/>
-            <column name="name" value="name"/>
-            <column name="value" value="important value"/>
-            <column name="type" value="string"/>
+        <addPrimaryKey tableName="attribute" columnNames="entity_id, attr_name"/>
+        <insert tableName="attribute">
+            <column name="entity_id" value="test"/>
+            <column name="attr_name" value="name"/>
+            <column name="attr_value" value="important value"/>
         </insert>
+    </changeSet>
+    <changeSet id="3" author="sazonovfm">
+        <addColumn tableName="post">
+            <column name="author" type="varchar"/>
+        </addColumn>
+        <update tableName="post">
+            <column name="author" value="Tom"/>
+            <where>id='qwerty'</where>
+        </update>
     </changeSet>
 </databaseChangeLog>

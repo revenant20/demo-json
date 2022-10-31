@@ -6,23 +6,22 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Entity
-public class AdditionalData {
+public class Attribute {
     @EmbeddedId
-    AdditionalDataId additionalDataId;
-    String value;
+    AttributeId attributeId;
+    String attrValue;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        AdditionalData that = (AdditionalData) o;
-        return additionalDataId != null && Objects.equals(additionalDataId, that.additionalDataId);
+        Attribute that = (Attribute) o;
+        return attributeId != null && Objects.equals(attributeId, that.attributeId);
     }
 
     @Override

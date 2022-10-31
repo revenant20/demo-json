@@ -28,6 +28,8 @@ public class Post {
     @Id
     String id;
 
+    String author;
+
     @Basic(fetch = FetchType.LAZY)
     @Column(columnDefinition = "jsonb")
     JsonNode additionalData;
