@@ -10,7 +10,7 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, String> {
     Post getById(String id);
 
-    @Query(nativeQuery = true, value = "select * from post where some_data ->> :teg = :val")
+    @Query(nativeQuery = true, value = "select * from post where additional_data ->> :teg = :val")
     List<Post> getWithRightJson(@Param("teg") String teg, @Param("val") String val);
 
 }

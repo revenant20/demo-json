@@ -23,7 +23,7 @@ public class Post {
     @Basic(fetch = FetchType.LAZY)
     @Column(columnDefinition = "jsonb")
     @Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
-    String someData;
+    String additionalData;
 
     @Override
     public boolean equals(Object o) {

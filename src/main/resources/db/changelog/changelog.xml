@@ -12,19 +12,19 @@
             <column name="id" type="varchar">
                 <constraints primaryKey="true" />
             </column>
-            <column name="some_data" type="jsonb" />
+            <column name="additional_data" type="jsonb" />
         </createTable>
         <insert tableName="post">
             <column name="id" value="qwerty"/>
-            <column name="some_data" value='{"a":"ab","b":"bc"}'/>
+            <column name="additional_data" value='{"a":"ab","b":"bc"}'/>
         </insert>
         <insert tableName="post">
             <column name="id" value="qwerty1"/>
-            <column name="some_data" value='{"a":"a","b":"b"}'/>
+            <column name="additional_data" value='{"a":"a","b":"b"}'/>
         </insert>
         <insert tableName="post">
             <column name="id" value="qwerty2"/>
-            <column name="some_data" value='{"a":"ac","b":"bc"}'/>
+            <column name="additional_data" value='{"a":"ac","b":"bc"}'/>
         </insert>
     </changeSet>
 </databaseChangeLog>

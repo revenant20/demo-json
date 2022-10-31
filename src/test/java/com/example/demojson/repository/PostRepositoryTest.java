@@ -2,8 +2,8 @@ package com.example.demojson.repository;
 
 import com.example.demojson.AbstractIntegrationTest;
 import com.example.demojson.entity.Post;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;

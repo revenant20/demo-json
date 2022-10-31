@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -23,18 +24,19 @@ public class PostServiceImpl implements PostService {
         Post referenceById = repository.getReferenceById(id);
         PostDto postDto = new PostDto();
         postDto.setId(referenceById.getId());
-        postDto.setJson(referenceById.getSomeData());
+        postDto.setJson(referenceById.getAdditionalData());
         return postDto;
 
     }
 
+    @Transactional
     @Override
     public PostDto getPostById(String id) {
         return repository.findById(id)
                 .map(post -> {
                     PostDto postDto = new PostDto();
                     postDto.setId(post.getId());
-                    postDto.setJson(post.getSomeData());
+                    postDto.setJson(post.getAdditionalData());
                     return postDto;
                 })
                 .orElseThrow();
@@ -46,7 +48,7 @@ public class PostServiceImpl implements PostService {
         Post post = byId.orElseThrow();
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
-        postDto.setJson(post.getSomeData());
+        postDto.setJson(post.getAdditionalData());
         return postDto;
     }
 
@@ -55,7 +57,7 @@ public class PostServiceImpl implements PostService {
         Post post = repository.getById(id);
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
-        postDto.setJson(post.getSomeData());
+        postDto.setJson(post.getAdditionalData());
         return postDto;
     }
 
@@ -64,11 +66,11 @@ public class PostServiceImpl implements PostService {
     public PostDto addPost(String id, SomeJson someJson) {
         Post post = new Post();
         post.setId(id);
-        post.setSomeData(mapper.writeValueAsString(someJson));
+        post.setAdditionalData(mapper.writeValueAsString(someJson));
         Post saved = repository.save(post);
         return PostDto.builder()
                 .id(saved.getId())
-                .json(saved.getSomeData())
+                .json(saved.getAdditionalData())
                 .build();
     }
 }
