@@ -29,7 +29,7 @@ class PostControllerTest extends AbstractIntegrationTest {
                 .andDo(print())
                 .andExpect(status().is(200))
                 .andExpect(content().json("""
-                        {"id":"qwerty","json":"{\\"a\\": \\"ab\\", \\"b\\": \\"bc\\"}"}
+                        {"id":"qwerty","json":"{\\"a\\":\\"ab\\",\\"b\\":\\"bc\\"}"}
                         """));
 
     }

@@ -3,6 +3,8 @@ package com.example.demojson.service;
 import com.example.demojson.AbstractIntegrationTest;
 import com.example.demojson.entity.Post;
 import com.example.demojson.repository.PostRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vladmihalcea.hibernate.type.json.internal.JacksonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,14 +27,16 @@ class PostServiceImplTest extends AbstractIntegrationTest {
     @Autowired
     public PostRepository repository;
 
+    private ObjectMapper mapper = new ObjectMapper();
+
     @BeforeEach
     void setUp() {
         Post post = new Post();
         post.setId("as");
-        post.setAdditionalData("""
+        post.setAdditionalData(JacksonUtil.toJsonNode("""
                 {
                   "a": "asd"
-                }""");
+                }"""));
         repository.save(post);
     }
 
@@ -55,7 +59,7 @@ class PostServiceImplTest extends AbstractIntegrationTest {
             var postDto = postService.getPostById("as");
             assertEquals("as", postDto.getId());
             assertEquals("""
-                    {"a": "asd"}""", postDto.getJson());
+                    {"a":"asd"}""", postDto.getJson());
             log.info("{}", postDto);
         });
     }
@@ -67,7 +71,7 @@ class PostServiceImplTest extends AbstractIntegrationTest {
             var postDto = postService.getPostByIdWithoutOptional("as");
             assertEquals("as", postDto.getId());
             assertEquals("""
-                    {"a": "asd"}""", postDto.getJson());
+                    {"a":"asd"}""", postDto.getJson());
             log.info("{}", postDto);
         });
     }

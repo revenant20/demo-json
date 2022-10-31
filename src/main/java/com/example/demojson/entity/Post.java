@@ -1,9 +1,13 @@
 package com.example.demojson.entity;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,6 +19,10 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@TypeDef(
+        typeClass = JsonBinaryType.class,
+        defaultForType = JsonNode.class
+)
 public class Post {
 
     @Id
@@ -22,8 +30,7 @@ public class Post {
 
     @Basic(fetch = FetchType.LAZY)
     @Column(columnDefinition = "jsonb")
-    @Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
-    String additionalData;
+    JsonNode additionalData;
 
     @Override
     public boolean equals(Object o) {

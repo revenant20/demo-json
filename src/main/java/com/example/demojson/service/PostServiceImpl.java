@@ -4,6 +4,7 @@ import com.example.demojson.dto.PostDto;
 import com.example.demojson.entity.Post;
 import com.example.demojson.repository.PostRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vladmihalcea.hibernate.type.json.internal.JacksonUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class PostServiceImpl implements PostService {
         Post referenceById = repository.getReferenceById(id);
         PostDto postDto = new PostDto();
         postDto.setId(referenceById.getId());
-        postDto.setJson(referenceById.getAdditionalData());
+        postDto.setJson(referenceById.getAdditionalData().toString());
         return postDto;
 
     }
@@ -36,7 +37,7 @@ public class PostServiceImpl implements PostService {
                 .map(post -> {
                     PostDto postDto = new PostDto();
                     postDto.setId(post.getId());
-                    postDto.setJson(post.getAdditionalData());
+                    postDto.setJson(post.getAdditionalData().toString());
                     return postDto;
                 })
                 .orElseThrow();
@@ -48,7 +49,7 @@ public class PostServiceImpl implements PostService {
         Post post = byId.orElseThrow();
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
-        postDto.setJson(post.getAdditionalData());
+        postDto.setJson(post.getAdditionalData().toString());
         return postDto;
     }
 
@@ -57,7 +58,7 @@ public class PostServiceImpl implements PostService {
         Post post = repository.getById(id);
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
-        postDto.setJson(post.getAdditionalData());
+        postDto.setJson(post.getAdditionalData().toString());
         return postDto;
     }
 
@@ -66,11 +67,11 @@ public class PostServiceImpl implements PostService {
     public PostDto addPost(String id, SomeJson someJson) {
         Post post = new Post();
         post.setId(id);
-        post.setAdditionalData(mapper.writeValueAsString(someJson));
+        post.setAdditionalData(JacksonUtil.toJsonNode(mapper.writeValueAsString(someJson)));
         Post saved = repository.save(post);
         return PostDto.builder()
                 .id(saved.getId())
-                .json(saved.getAdditionalData())
+                .json(saved.getAdditionalData().toString())
                 .build();
     }
 }
