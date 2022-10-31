@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
@@ -12,10 +13,8 @@ import java.util.Objects;
 @Setter
 @Entity
 public class AdditionalData {
-    @Id
-    String id;
-    String name;
-    String type;
+    @EmbeddedId
+    AdditionalDataId additionalDataId;
     String value;
 
     @Override
@@ -23,7 +22,7 @@ public class AdditionalData {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         AdditionalData that = (AdditionalData) o;
-        return id != null && Objects.equals(id, that.id);
+        return additionalDataId != null && Objects.equals(additionalDataId, that.additionalDataId);
     }
 
     @Override

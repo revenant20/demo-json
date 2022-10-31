@@ -30,13 +30,12 @@
 
     <changeSet id="2" author="sazonovfm">
         <createTable tableName="additional_data">
-            <column name="id" type="varchar">
-                <constraints primaryKey="true" />
-            </column>
+            <column name="id" type="varchar"/>
             <column name="name" type="varchar"/>
             <column name="value" type="varchar"/>
             <column name="type" type="varchar"/>
         </createTable>
+        <addPrimaryKey tableName="additional_data" columnNames="id, name, type"/>
         <insert tableName="additional_data">
             <column name="id" value="test"/>
             <column name="name" value="name"/>
