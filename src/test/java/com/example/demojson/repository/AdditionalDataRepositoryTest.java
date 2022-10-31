@@ -14,7 +14,7 @@ class AdditionalDataRepositoryTest extends AbstractIntegrationTest {
 
     @Test
     void testDataGetting() {
-        AdditionalData additionalData = repository.findById("name").orElseThrow(RuntimeException::new);
+        AdditionalData additionalData = repository.findById("test").orElseThrow(RuntimeException::new);
         assertEquals("name", additionalData.getName());
         assertEquals("string", additionalData.getType());
         assertEquals("important value", additionalData.getValue());
