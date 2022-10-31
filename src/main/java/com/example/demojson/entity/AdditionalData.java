@@ -13,7 +13,7 @@ import java.util.Objects;
 @Entity
 public class AdditionalData {
     @Id
-    Integer id;
+    String name;
     String type;
     String value;
 
@@ -22,7 +22,7 @@ public class AdditionalData {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         AdditionalData that = (AdditionalData) o;
-        return id != null && Objects.equals(id, that.id);
+        return name != null && Objects.equals(name, that.name);
     }
 
     @Override
