@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InternalProductId {
+public class ExternalIds {
     @JsonProperty("HUTT_INC")
     private String huttInc;
     @JsonProperty("TRADE_FED")

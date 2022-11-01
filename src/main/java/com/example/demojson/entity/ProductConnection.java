@@ -19,7 +19,7 @@ import java.util.Objects;
 @Entity
 @TypeDef(
         typeClass = JsonBinaryType.class,
-        defaultForType = InternalProductId.class
+        defaultForType = ExternalIds.class
 )
 public class ProductConnection {
 
@@ -27,7 +27,7 @@ public class ProductConnection {
     private String productId;
 
     @Column(columnDefinition = "jsonb")
-    private InternalProductId internalProductId;
+    private ExternalIds externalIds;
 
     @Override
     public boolean equals(Object o) {
