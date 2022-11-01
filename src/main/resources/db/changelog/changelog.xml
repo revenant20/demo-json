@@ -98,4 +98,19 @@
             <column name="internal_product_id" value='{"HUTT_INC":"SUPER_ZAIM_140","TRADE_FED":"MEGA_LOAN","EMPIRE":"death_star"}'/>
         </insert>
     </changeSet>
+    <changeSet id="6" author="sazonovfm">
+        <createTable tableName="product">
+            <column name="id" type="varchar">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="name" type="varchar"/>
+        </createTable>
+        <insert tableName="product">
+            <column name="id" value="test"/>
+            <column name="name" value="name"/>
+        </insert>
+        <addForeignKeyConstraint baseTableName="attribute" baseColumnNames="entity_id" constraintName="fk_attr"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"/>
+    </changeSet>
 </databaseChangeLog>

@@ -2,6 +2,7 @@ package com.example.demojson.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.EmbeddedId;
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Attribute {
     @EmbeddedId
     AttributeId attributeId;
