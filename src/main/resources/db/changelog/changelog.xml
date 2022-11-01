@@ -50,4 +50,40 @@
             <where>id='qwerty'</where>
         </update>
     </changeSet>
+    <changeSet id="4" author="sazonovfm">
+        <createTable tableName="agreements">
+            <column name="agreement_id" type="varchar">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="agr_type" type="varchar"/>
+            <column name="descr" type="varchar"/>
+        </createTable>
+        <createTable tableName="loan_agreements">
+            <column name="agreement_id" type="varchar">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="length" type="int"/>
+            <column name="amount" type="int"/>
+        </createTable>
+        <createTable tableName="hire_agreements">
+            <column name="agreement_id" type="varchar">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="employee_passport" type="varchar"/>
+            <column name="employer_passport" type="varchar"/>
+        </createTable>
+        <insert tableName="agreements">
+            <column name="agreement_id" value="loanagr"/>
+        </insert>
+        <insert tableName="loan_agreements">
+            <column name="agreement_id" value="loanagr"/>
+            <column name="amount" value="2"/>
+            <column name="length" value="2"/>
+        </insert>
+        <insert tableName="hire_agreements">
+            <column name="agreement_id" value="hireagr"/>
+            <column name="employee_passport" value="passport"/>
+            <column name="employer_passport" value="eml-pass"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
