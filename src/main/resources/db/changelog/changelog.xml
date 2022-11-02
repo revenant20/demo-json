@@ -93,6 +93,7 @@
             </column>
             <column name="external_ids" type="jsonb" />
         </createTable>
+        <sql>CREATE INDEX idxgin ON product_connection USING GIN (external_ids);</sql>
         <insert tableName="product_connection">
             <column name="product_id" value="qwerty"/>
             <column name="external_ids" value='{"HUTT_INC":"SUPER_ZAIM_140","TRADE_FED":"MEGA_LOAN","EMPIRE":"death_star"}'/>
