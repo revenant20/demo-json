@@ -18,7 +18,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
     @Id

@@ -100,18 +100,18 @@
         </insert>
     </changeSet>
     <changeSet id="6" author="sazonovfm">
-        <createTable tableName="product">
+        <createTable tableName="products">
             <column name="id" type="varchar">
                 <constraints primaryKey="true" />
             </column>
             <column name="name" type="varchar"/>
         </createTable>
-        <insert tableName="product">
+        <insert tableName="products">
             <column name="id" value="test"/>
             <column name="name" value="name"/>
         </insert>
         <addForeignKeyConstraint baseTableName="attribute" baseColumnNames="entity_id" constraintName="fk_attr"
-                                 referencedTableName="product"
+                                 referencedTableName="products"
                                  referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>
