@@ -5,6 +5,7 @@ import com.example.demojson.entity.Attribute;
 import com.example.demojson.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
     @Autowired
     private ProductRepository repository;
 
+    @Transactional
     @Test
     void testExists() {
         Product product = repository.findById("test").orElseThrow();

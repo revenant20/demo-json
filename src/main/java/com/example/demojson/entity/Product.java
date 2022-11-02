@@ -26,7 +26,7 @@ public class Product {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "attributeId.entityId", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "attributeId.entityId", orphanRemoval = true)
     @ToString.Exclude
     private List<Attribute> attributes;
 
