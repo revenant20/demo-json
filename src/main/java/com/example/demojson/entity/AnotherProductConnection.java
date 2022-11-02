@@ -22,7 +22,7 @@ import java.util.Objects;
         typeClass = JsonBinaryType.class,
         defaultForType = Map.class
 )
-@Table(name = "product_connection")
+@Table(name = "product_connections")
 public class AnotherProductConnection {
 
     @Id

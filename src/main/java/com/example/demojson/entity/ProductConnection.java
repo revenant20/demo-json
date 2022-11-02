@@ -11,6 +11,7 @@ import org.hibernate.annotations.TypeDef;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Getter
@@ -21,6 +22,7 @@ import java.util.Objects;
         typeClass = JsonBinaryType.class,
         defaultForType = ExternalIds.class
 )
+@Table(name = "product_connections")
 public class ProductConnection {
 
     @Id
