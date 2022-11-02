@@ -1,6 +1,6 @@
 package com.example.demojson.service;
 
-public interface WriterPostService {
+public interface UpdateAppService    {
 
     void updateAuthor(String id, String newAuthor);
 }

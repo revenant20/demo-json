@@ -1,27 +1,33 @@
 package com.example.demojson.service;
 
 import com.example.demojson.AbstractIntegrationTest;
-import com.example.demojson.repository.PostRepository;
+import com.example.demojson.repository.AppRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Transactional(propagation  = Propagation.NEVER)
 @Slf4j
-class WriterPostServiceImplTest extends AbstractIntegrationTest {
+class WriterAppServiceImplTest extends AbstractIntegrationTest {
 
     @Autowired
-    private WriterPostService writerPostService;
+    private UpdateAppService updateAppService;
 
     @Autowired
-    private PostRepository repository;
+    private AppRepository repository;
 
-    @Transactional
     @Test
     void testAuthorSaving() {
-        writerPostService.updateAuthor("qwerty", "Bane");
+        updateAppService.updateAuthor("qwerty", "Bane");
+        //getData();
+    }
+
+    @Transactional
+    public void getData() {
         repository.findById("qwerty").ifPresentOrElse(post -> {
             assertEquals("Bane", post.getAuthor());
             assertEquals("zxc", post.getAdditionalData().get("str").asText());

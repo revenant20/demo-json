@@ -1,8 +1,8 @@
 package com.example.demojson.service;
 
 import com.example.demojson.AbstractIntegrationTest;
-import com.example.demojson.entity.Post;
-import com.example.demojson.repository.PostRepository;
+import com.example.demojson.entity.App;
+import com.example.demojson.repository.AppRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vladmihalcea.hibernate.type.json.internal.JacksonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -19,32 +19,32 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @Slf4j
-class PostServiceImplTest extends AbstractIntegrationTest {
+class AppServiceImplTest extends AbstractIntegrationTest {
 
     @Autowired
-    public PostService postService;
+    public AppService appService;
 
     @Autowired
-    public PostRepository repository;
+    public AppRepository repository;
 
     private ObjectMapper mapper = new ObjectMapper();
 
     @BeforeEach
     void setUp() {
-        Post post = new Post();
-        post.setId("as");
-        post.setAdditionalData(JacksonUtil.toJsonNode("""
+        App app = new App();
+        app.setId("as");
+        app.setAdditionalData(JacksonUtil.toJsonNode("""
                 {
                   "a": "asd"
                 }"""));
-        repository.save(post);
+        repository.save(app);
     }
 
     @Transactional(propagation = Propagation.NEVER)
     @Test
     void testJsonSaving() {
         assertThrows(LazyInitializationException.class, () -> {
-            var postDto = postService.getPostByReferenceId("as");
+            var postDto = appService.getAppByReferenceId("as");
             assertEquals("as", postDto.getId());
             assertEquals("""
                     {"a": "asd"}""", postDto.getJson());
@@ -56,7 +56,7 @@ class PostServiceImplTest extends AbstractIntegrationTest {
     @Test
     void testJsonSaving1() {
         assertDoesNotThrow(() -> {
-            var postDto = postService.getPostById("as");
+            var postDto = appService.getAppById("as");
             assertEquals("as", postDto.getId());
             assertEquals("""
                     {"a":"asd"}""", postDto.getJson());
@@ -68,7 +68,7 @@ class PostServiceImplTest extends AbstractIntegrationTest {
     @Test
     void testJsonSaving2() {
         assertThrows(LazyInitializationException.class, () -> {
-            var postDto = postService.getPostByIdWithoutOptional("as");
+            var postDto = appService.getAppByIdWithoutOptional("as");
             assertEquals("as", postDto.getId());
             assertEquals("""
                     {"a":"asd"}""", postDto.getJson());
@@ -80,7 +80,7 @@ class PostServiceImplTest extends AbstractIntegrationTest {
     @Test
     void testJsonSaving3() {
         assertThrows(LazyInitializationException.class, () -> {
-            var postDto = postService.getPostByCustomMethode("as");
+            var postDto = appService.getAppByCustomMethode("as");
             assertEquals("as", postDto.getId());
             assertEquals("""
                     {"a": "asd"}""", postDto.getJson());
@@ -91,7 +91,7 @@ class PostServiceImplTest extends AbstractIntegrationTest {
     @Test
     void testJson() {
         assertThrows(LazyInitializationException.class, () -> {
-            var postDto = postService.getPostByReferenceId("as");
+            var postDto = appService.getAppByReferenceId("as");
             assertEquals("as", postDto.getId());
             assertEquals("""
                     {"a": "asd"}""", postDto.getJson());

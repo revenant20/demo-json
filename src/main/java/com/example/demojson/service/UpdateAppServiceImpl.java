@@ -1,6 +1,6 @@
 package com.example.demojson.service;
 
-import com.example.demojson.repository.PostRepository;
+import com.example.demojson.repository.AppRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class WriterPostServiceImpl implements WriterPostService {
+public class UpdateAppServiceImpl implements UpdateAppService {
 
-    private final PostRepository repository;
+    private final AppRepository repository;
 
     @Transactional
     @Override

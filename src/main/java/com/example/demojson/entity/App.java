@@ -21,7 +21,7 @@ import java.util.Objects;
         typeClass = JsonBinaryType.class,
         defaultForType = JsonNode.class
 )
-public class Post {
+public class App {
 
     @Id
     String id;
@@ -36,8 +36,8 @@ public class Post {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Post post = (Post) o;
-        return id != null && Objects.equals(id, post.id);
+        App app = (App) o;
+        return id != null && Objects.equals(id, app.id);
     }
 
     @Override

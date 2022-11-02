@@ -1,7 +1,7 @@
 package com.example.demojson.controller;
 
-import com.example.demojson.dto.PostDto;
-import com.example.demojson.service.PostService;
+import com.example.demojson.dto.AppDto;
+import com.example.demojson.service.AppService;
 import com.example.demojson.service.SomeJson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +15,17 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-public class PostController {
+public class AppController {
 
-    private final PostService service;
+    private final AppService service;
 
     @GetMapping("/{id}/{str}")
     public ResponseEntity<?> getPost(@PathVariable String id, @PathVariable String str) {
         var postDto=  switch (str) {
-            case "1" -> service.getPostByReferenceId(id);
-            case "2" -> service.getPostById(id);
-            case "3" -> service.getPostByIdWithoutOptional(id);
-            case "4" -> service.getPostByCustomMethode(id);
+            case "1" -> service.getAppByReferenceId(id);
+            case "2" -> service.getAppById(id);
+            case "3" -> service.getAppByIdWithoutOptional(id);
+            case "4" -> service.getAppByCustomMethode(id);
             default -> throw new RuntimeException();
         };
         return ResponseEntity.ok(postDto);
@@ -33,8 +33,8 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<?> add(@RequestBody SomeJson someJson) {
-        PostDto postDto = service.addPost(UUID.randomUUID().toString(), someJson);
-        return ResponseEntity.ok(postDto);
+        AppDto appDto = service.addApp(UUID.randomUUID().toString(), someJson);
+        return ResponseEntity.ok(appDto);
     }
 
 }

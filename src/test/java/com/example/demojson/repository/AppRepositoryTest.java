@@ -1,7 +1,7 @@
 package com.example.demojson.repository;
 
 import com.example.demojson.AbstractIntegrationTest;
-import com.example.demojson.entity.Post;
+import com.example.demojson.entity.App;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PostRepositoryTest extends AbstractIntegrationTest {
+public class AppRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
-    public PostRepository repository;
+    public AppRepository repository;
 
     @BeforeEach
     void setUp() {
-        Post entity = new Post();
+        App entity = new App();
         entity.setAuthor("Ban Gun");
         entity.setId("asdfg");
         repository.save(entity);
@@ -31,7 +31,7 @@ public class PostRepositoryTest extends AbstractIntegrationTest {
         var withRightJson = repository.getWithRightJson("b", "bc");
         assertEquals(2, withRightJson.size());
         Set<String> ids = withRightJson.stream()
-                .map(Post::getId)
+                .map(App::getId)
                 .collect(Collectors.toSet());
         Assertions.assertTrue(ids.contains("qwerty"));
         Assertions.assertTrue(ids.contains("qwerty2"));
