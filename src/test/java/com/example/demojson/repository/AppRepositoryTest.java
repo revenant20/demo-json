@@ -21,7 +21,7 @@ public class AppRepositoryTest extends AbstractIntegrationTest {
     @BeforeEach
     void setUp() {
         App entity = new App();
-        entity.setAuthor("Ban Gun");
+        entity.setNumber("Ban Gun");
         entity.setId("asdfg");
         repository.save(entity);
     }
@@ -40,7 +40,7 @@ public class AppRepositoryTest extends AbstractIntegrationTest {
     @Test
     void testAuthorExists() {
         repository.findById("asdfg").ifPresentOrElse(post -> {
-            assertEquals("Ban Gun", post.getAuthor());
+            assertEquals("Ban Gun", post.getNumber());
         }, () -> {throw new RuntimeException();});
     }
 

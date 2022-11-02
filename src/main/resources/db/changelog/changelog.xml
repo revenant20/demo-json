@@ -43,10 +43,10 @@
     </changeSet>
     <changeSet id="3" author="sazonovfm">
         <addColumn tableName="app">
-            <column name="author" type="varchar"/>
+            <column name="number" type="varchar"/>
         </addColumn>
         <update tableName="app">
-            <column name="author" value="Tom"/>
+            <column name="number" value="Tom"/>
             <where>id='qwerty'</where>
         </update>
     </changeSet>

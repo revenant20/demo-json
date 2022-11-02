@@ -26,7 +26,7 @@ public class App {
     @Id
     String id;
 
-    String author;
+    String number;
 
     @Basic(fetch = FetchType.LAZY)
     @Column(columnDefinition = "jsonb")

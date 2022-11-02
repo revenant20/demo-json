@@ -17,7 +17,7 @@ public class UpdateAppServiceImpl implements UpdateAppService {
     public void updateAuthor(String id, String newAuthor) {
         repository.findById(id)
                 .ifPresent(post -> {
-                    post.setAuthor(newAuthor);
+                    post.setNumber(newAuthor);
                     ((ObjectNode)post.getAdditionalData()).put("str", "zxc");
                 });
     }
