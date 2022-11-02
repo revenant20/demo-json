@@ -5,6 +5,7 @@ import com.example.demojson.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,11 +18,13 @@ class WriterPostServiceImplTest extends AbstractIntegrationTest {
     @Autowired
     private PostRepository repository;
 
+    @Transactional
     @Test
     void testAuthorSaving() {
         writerPostService.updateAuthor("qwerty", "Bane");
         repository.findById("qwerty").ifPresentOrElse(post -> {
             assertEquals("Bane", post.getAuthor());
+            assertEquals("zxc", post.getAdditionalData().get("str").asText());
         }, () -> {
             throw new RuntimeException();
         });

@@ -1,6 +1,7 @@
 package com.example.demojson.service;
 
 import com.example.demojson.repository.PostRepository;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,9 @@ public class WriterPostServiceImpl implements WriterPostService {
     @Override
     public void updateAuthor(String id, String newAuthor) {
         repository.findById(id)
-                .ifPresent(post -> post.setAuthor(newAuthor));
+                .ifPresent(post -> {
+                    post.setAuthor(newAuthor);
+                    ((ObjectNode)post.getAdditionalData()).put("str", "zxc");
+                });
     }
 }
