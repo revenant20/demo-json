@@ -33,7 +33,7 @@ class AppServiceImplTest extends AbstractIntegrationTest {
     void setUp() {
         App app = new App();
         app.setId("as");
-        app.setAdditionalData(JacksonUtil.toJsonNode("""
+        app.setExternalData(JacksonUtil.toJsonNode("""
                 {
                   "a": "asd"
                 }"""));

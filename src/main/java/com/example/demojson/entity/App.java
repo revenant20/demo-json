@@ -3,6 +3,7 @@ package com.example.demojson.entity;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.Basic;
@@ -25,6 +26,7 @@ public class App {
     String number;
 
     @Basic(fetch = FetchType.LAZY)
+//    @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     JsonNode externalData;
 

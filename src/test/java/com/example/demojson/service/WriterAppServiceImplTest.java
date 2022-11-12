@@ -30,7 +30,7 @@ class WriterAppServiceImplTest extends AbstractIntegrationTest {
     public void getData() {
         repository.findById("qwerty").ifPresentOrElse(post -> {
             assertEquals("Bane", post.getNumber());
-            assertEquals("zxc", post.getAdditionalData().get("str").asText());
+            assertEquals("zxc", post.getExternalData().get("str").asText());
         }, () -> {
             throw new RuntimeException();
         });
