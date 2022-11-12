@@ -16,9 +16,9 @@ public class UpdateAppServiceImpl implements UpdateAppService {
     @Override
     public void updateAuthor(String id, String newAuthor) {
         repository.findById(id)
-                .ifPresent(post -> {
-                    post.setNumber(newAuthor);
-                    ((ObjectNode)post.getAdditionalData()).put("str", "zxc");
+                .ifPresent(app -> {
+                    app.setNumber(newAuthor);
+                    ((ObjectNode)app.getExternalData()).put("str", "zxc");
                 });
     }
 }
