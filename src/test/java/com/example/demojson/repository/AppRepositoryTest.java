@@ -56,7 +56,7 @@ public class AppRepositoryTest extends AbstractIntegrationTest {
         update.stream()
                 .findFirst()
                 .ifPresent(app -> {
-                    assertEquals("75ff6bca-1267-4505-883a-4bad0e0e91b5", app.getAdditionalData().get("id").asText());
+                    assertEquals("75ff6bca-1267-4505-883a-4bad0e0e91b5", app.getExternalData().get("id").asText());
                 });
     }
 
