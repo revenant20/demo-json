@@ -34,10 +34,10 @@ public class AppServiceImpl implements AppService {
     @Override
     public AppDto getAppById(String id) {
         return repository.findById(id)
-                .map(post -> {
+                .map(app -> {
                     AppDto appDto = new AppDto();
-                    appDto.setId(post.getId());
-                    appDto.setJson(post.getExternalData().toString());
+                    appDto.setId(app.getId());
+                    appDto.setJson(app.getExternalData().toString());
                     return appDto;
                 })
                 .orElseThrow();

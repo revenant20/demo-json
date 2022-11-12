@@ -44,11 +44,11 @@ class AppServiceImplTest extends AbstractIntegrationTest {
     @Test
     void testJsonSaving() {
         assertThrows(LazyInitializationException.class, () -> {
-            var postDto = appService.getAppByReferenceId("as");
-            assertEquals("as", postDto.getId());
+            var appDto = appService.getAppByReferenceId("as");
+            assertEquals("as", appDto.getId());
             assertEquals("""
-                    {"a": "asd"}""", postDto.getJson());
-            log.info("{}", postDto);
+                    {"a": "asd"}""", appDto.getJson());
+            log.info("{}", appDto);
         });
     }
 
@@ -56,11 +56,11 @@ class AppServiceImplTest extends AbstractIntegrationTest {
     @Test
     void testJsonSaving1() {
         assertDoesNotThrow(() -> {
-            var postDto = appService.getAppById("as");
-            assertEquals("as", postDto.getId());
+            var appDto = appService.getAppById("as");
+            assertEquals("as", appDto.getId());
             assertEquals("""
-                    {"a":"asd"}""", postDto.getJson());
-            log.info("{}", postDto);
+                    {"a":"asd"}""", appDto.getJson());
+            log.info("{}", appDto);
         });
     }
 
@@ -68,11 +68,11 @@ class AppServiceImplTest extends AbstractIntegrationTest {
     @Test
     void testJsonSaving2() {
         assertThrows(LazyInitializationException.class, () -> {
-            var postDto = appService.getAppByIdWithoutOptional("as");
-            assertEquals("as", postDto.getId());
+            var appDto = appService.getAppByIdWithoutOptional("as");
+            assertEquals("as", appDto.getId());
             assertEquals("""
-                    {"a":"asd"}""", postDto.getJson());
-            log.info("{}", postDto);
+                    {"a":"asd"}""", appDto.getJson());
+            log.info("{}", appDto);
         });
     }
 
@@ -80,22 +80,22 @@ class AppServiceImplTest extends AbstractIntegrationTest {
     @Test
     void testJsonSaving3() {
         assertThrows(LazyInitializationException.class, () -> {
-            var postDto = appService.getAppByCustomMethode("as");
-            assertEquals("as", postDto.getId());
+            var appDto = appService.getAppByCustomMethode("as");
+            assertEquals("as", appDto.getId());
             assertEquals("""
-                    {"a": "asd"}""", postDto.getJson());
-            log.info("{}", postDto);
+                    {"a": "asd"}""", appDto.getJson());
+            log.info("{}", appDto);
         });
     }
 
     @Test
     void testJson() {
         assertThrows(LazyInitializationException.class, () -> {
-            var postDto = appService.getAppByReferenceId("as");
-            assertEquals("as", postDto.getId());
+            var appDto = appService.getAppByReferenceId("as");
+            assertEquals("as", appDto.getId());
             assertEquals("""
-                    {"a": "asd"}""", postDto.getJson());
-            log.info("{}", postDto);
+                    {"a": "asd"}""", appDto.getJson());
+            log.info("{}", appDto);
         });
     }
 }

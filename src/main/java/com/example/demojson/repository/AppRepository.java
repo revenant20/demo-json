@@ -10,12 +10,12 @@ import java.util.List;
 public interface AppRepository extends JpaRepository<App, String> {
     App getById(String id);
 
-    @Query(nativeQuery = true, value = "select * from app where additional_data ->> :tag = :val")
+    @Query(nativeQuery = true, value = "select * from app where external_data ->> :tag = :val")
     List<App> getWithRightJson(@Param("tag") String tag, @Param("val") String val);
 
     @Query(nativeQuery = true,
 //            value = "select * from app where additional_data #> '{event,type}' = :type \\:\\:jsonb")
-            value = "select * from app where additional_data #> '{event,type}' = cast(:type as jsonb)")
+            value = "select * from app where external_data #> '{event,type}' = cast(:type as jsonb)")
 //            value = "select * from app where additional_data #> '{event,type}' = :type")
 //    @Query(nativeQuery = true, value = "select * from app where additional_data #> '{event,type}' = '\"update\"'")
     List<App> findAppWithEventType(@Param("type") String type);

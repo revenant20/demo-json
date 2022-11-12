@@ -23,7 +23,6 @@ class WriterAppServiceImplTest extends AbstractIntegrationTest {
     @Test
     void testAuthorSaving() {
         updateAppService.updateAuthor("qwerty", "Bane");
-        //getData();
     }
 
     @Transactional
