@@ -1,0 +1,13 @@
+[
+  {
+    "id": "75ff6bca-1267-4505-883a-4bad0e0e91b5",
+    "event": {
+      "type": "update",
+      "agrementId": "dcf31771-6daf-4efe-9a40-3cbd20d936c7",
+      "body":  {
+        "currency": "ru",
+        "value": 100
+      }
+    }
+  }
+]

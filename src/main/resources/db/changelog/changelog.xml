@@ -6,13 +6,13 @@
         xmlns:pro="http://www.liquibase.org/xml/ns/pro"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 		file:./dbchangelog-latest.xsd
-		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd" >
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <changeSet id="1" author="sazonovfm">
         <createTable tableName="app">
             <column name="id" type="varchar">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
-            <column name="additional_data" type="jsonb" />
+            <column name="additional_data" type="jsonb"/>
         </createTable>
         <insert tableName="app">
             <column name="id" value="qwerty"/>
@@ -53,21 +53,21 @@
     <changeSet id="4" author="sazonovfm">
         <createTable tableName="agreements">
             <column name="agreement_id" type="varchar">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
             <column name="agr_type" type="varchar"/>
             <column name="descr" type="varchar"/>
         </createTable>
         <createTable tableName="loan_agreements">
             <column name="agreement_id" type="varchar">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
             <column name="length" type="int"/>
             <column name="amount" type="int"/>
         </createTable>
         <createTable tableName="hire_agreements">
             <column name="agreement_id" type="varchar">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
             <column name="employee_passport" type="varchar"/>
             <column name="employer_passport" type="varchar"/>
@@ -89,20 +89,23 @@
     <changeSet id="5" author="sazonovfm">
         <createTable tableName="product_connections">
             <column name="product_id" type="varchar">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
-            <column name="external_ids" type="jsonb" />
+            <column name="external_ids" type="jsonb"/>
         </createTable>
-        <sql><![CDATA[CREATE INDEX idxgin ON product_connections USING GIN (external_ids);]]></sql>
+        <sql><![CDATA[
+            CREATE INDEX idxgin ON product_connections USING GIN (external_ids);
+            ]]></sql>
         <insert tableName="product_connections">
             <column name="product_id" value="qwerty"/>
-            <column name="external_ids" value='{"HUTT_INC":"SUPER_ZAIM_140","TRADE_FED":"MEGA_LOAN","EMPIRE":"death_star"}'/>
+            <column name="external_ids"
+                    value='{"HUTT_INC":"SUPER_ZAIM_140","TRADE_FED":"MEGA_LOAN","EMPIRE":"death_star"}'/>
         </insert>
     </changeSet>
     <changeSet id="6" author="sazonovfm">
         <createTable tableName="products">
             <column name="id" type="varchar">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar"/>
         </createTable>
@@ -113,5 +116,26 @@
         <addForeignKeyConstraint baseTableName="attribute" baseColumnNames="entity_id" constraintName="fk_attr"
                                  referencedTableName="products"
                                  referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="7" author="sazonovfm">
+        <sql><![CDATA[
+            CREATE INDEX addatagin ON app USING GIN (additional_data);
+            ]]></sql>
+        <insert tableName="app">
+            <column name="id" value="1"/>
+            <column name="additional_data" value='
+            {
+    "id": "75ff6bca-1267-4505-883a-4bad0e0e91b5",
+    "event": {
+      "type": "update",
+      "agrementId": "dcf31771-6daf-4efe-9a40-3cbd20d936c7",
+      "body":  {
+        "currency": "ru",
+        "value": 100
+      }
+    }
+  }'
+            />
+        </insert>
     </changeSet>
 </databaseChangeLog>
