@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,7 +43,21 @@ public class AppRepositoryTest extends AbstractIntegrationTest {
     void testAuthorExists() {
         repository.findById("asdfg").ifPresentOrElse(post -> {
             assertEquals("Ban Gun", post.getNumber());
-        }, () -> {throw new RuntimeException();});
+        }, () -> {
+            throw new RuntimeException();
+        });
+    }
+
+    @Transactional
+    @Test
+    void testCustomJson() {
+        List<App> update = repository.findAppWithEventType("\"update\"");
+        assertEquals(1, update.size());
+        update.stream()
+                .findFirst()
+                .ifPresent(app -> {
+                    assertEquals("75ff6bca-1267-4505-883a-4bad0e0e91b5", app.getAdditionalData().get("id").asText());
+                });
     }
 
     @AfterEach
