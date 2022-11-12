@@ -30,7 +30,7 @@ public class App {
     String number;
 
     @Basic(fetch = FetchType.LAZY)
-    @Type(type = "jsonb")
+//    @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     JsonNode externalData;
 
