@@ -15,4 +15,6 @@ public class ExternalIds {
     private String huttInc;
     @JsonProperty("TRADE_FED")
     private String tradeFed;
+
+    // getters, setters
 }

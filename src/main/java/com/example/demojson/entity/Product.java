@@ -26,20 +26,12 @@ public class Product {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "attributeId.entityId", orphanRemoval = true)
-    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL
+            , fetch = FetchType.LAZY
+            , mappedBy = "attributeId.entityId"
+            , orphanRemoval = true
+    )
     private List<Attribute> attributes;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Product product = (Product) o;
-        return id != null && Objects.equals(id, product.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+    // getters, setters
 }
