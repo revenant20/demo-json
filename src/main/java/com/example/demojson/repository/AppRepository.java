@@ -13,6 +13,7 @@ public interface AppRepository extends JpaRepository<App, String> {
     @Query(nativeQuery = true, value = "select * from app where additional_data ->> :tag = :val")
     List<App> getWithRightJson(@Param("tag") String tag, @Param("val") String val);
 
-    @Query(nativeQuery = true, value = "select * from app where additional_data #> '{event,type}' = :type")
+    //@Query(nativeQuery = true, value = "select * from app where additional_data #> '{event,type}' = :type")
+    @Query(nativeQuery = true, value = "select * from app where additional_data #> '{event,type}' = '\"update\"'")
     List<App> findAppWithEventType(@Param("type") String type);
 }
