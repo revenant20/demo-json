@@ -25,7 +25,7 @@ public class AppServiceImpl implements AppService {
         App referenceById = repository.getReferenceById(id);
         AppDto appDto = new AppDto();
         appDto.setId(referenceById.getId());
-        appDto.setJson(referenceById.getAdditionalData().toString());
+        appDto.setJson(referenceById.getExternalData().toString());
         return appDto;
 
     }
@@ -37,7 +37,7 @@ public class AppServiceImpl implements AppService {
                 .map(post -> {
                     AppDto appDto = new AppDto();
                     appDto.setId(post.getId());
-                    appDto.setJson(post.getAdditionalData().toString());
+                    appDto.setJson(post.getExternalData().toString());
                     return appDto;
                 })
                 .orElseThrow();
@@ -49,7 +49,7 @@ public class AppServiceImpl implements AppService {
         App app = byId.orElseThrow();
         AppDto appDto = new AppDto();
         appDto.setId(app.getId());
-        appDto.setJson(app.getAdditionalData().toString());
+        appDto.setJson(app.getExternalData().toString());
         return appDto;
     }
 
@@ -58,7 +58,7 @@ public class AppServiceImpl implements AppService {
         App app = repository.getById(id);
         AppDto appDto = new AppDto();
         appDto.setId(app.getId());
-        appDto.setJson(app.getAdditionalData().toString());
+        appDto.setJson(app.getExternalData().toString());
         return appDto;
     }
 
@@ -67,11 +67,11 @@ public class AppServiceImpl implements AppService {
     public AppDto addApp(String id, SomeJson someJson) {
         App app = new App();
         app.setId(id);
-        app.setAdditionalData(JacksonUtil.toJsonNode(mapper.writeValueAsString(someJson)));
+        app.setExternalData(JacksonUtil.toJsonNode(mapper.writeValueAsString(someJson)));
         App saved = repository.save(app);
         return AppDto.builder()
                 .id(saved.getId())
-                .json(saved.getAdditionalData().toString())
+                .json(saved.getExternalData().toString())
                 .build();
     }
 }

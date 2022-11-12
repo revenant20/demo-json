@@ -2,9 +2,7 @@ package com.example.demojson.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.Hibernate;
+import lombok.Data;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.Basic;
@@ -12,10 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import java.util.Objects;
 
-@Getter
-@Setter
+@Data
 @Entity
 @TypeDef(
         typeClass = JsonBinaryType.class,
@@ -30,18 +26,7 @@ public class App {
 
     @Basic(fetch = FetchType.LAZY)
     @Column(columnDefinition = "jsonb")
-    JsonNode additionalData;
+    JsonNode externalData;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        App app = (App) o;
-        return id != null && Objects.equals(id, app.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+   //getters, setters
 }

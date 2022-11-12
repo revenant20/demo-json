@@ -12,19 +12,19 @@
             <column name="id" type="varchar">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="additional_data" type="jsonb"/>
+            <column name="external_data" type="jsonb"/>
         </createTable>
         <insert tableName="app">
             <column name="id" value="qwerty"/>
-            <column name="additional_data" value='{"a":"ab","b":"bc"}'/>
+            <column name="external_data" value='{"a":"ab","b":"bc"}'/>
         </insert>
         <insert tableName="app">
             <column name="id" value="qwerty1"/>
-            <column name="additional_data" value='{"a":"a","b":"b"}'/>
+            <column name="external_data" value='{"a":"a","b":"b"}'/>
         </insert>
         <insert tableName="app">
             <column name="id" value="qwerty2"/>
-            <column name="additional_data" value='{"a":"ac","b":"bc"}'/>
+            <column name="external_data" value='{"a":"ac","b":"bc"}'/>
         </insert>
     </changeSet>
 
@@ -119,11 +119,11 @@
     </changeSet>
     <changeSet id="7" author="sazonovfm">
         <sql><![CDATA[
-            CREATE INDEX addatagin ON app USING GIN (additional_data);
+            CREATE INDEX addatagin ON app USING GIN (external_data);
             ]]></sql>
         <insert tableName="app">
             <column name="id" value="1"/>
-            <column name="additional_data" value='
+            <column name="external_data" value='
             {
     "id": "75ff6bca-1267-4505-883a-4bad0e0e91b5",
     "event": {
@@ -137,5 +137,13 @@
   }'
             />
         </insert>
+    </changeSet>
+    <changeSet id="8" author="sazonovfm">
+        <createTable tableName="events">
+            <column name="event_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="payload" type="varchar"/>
+        </createTable>
     </changeSet>
 </databaseChangeLog>

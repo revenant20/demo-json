@@ -1,6 +1,7 @@
 package com.example.demojson.entity;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,9 +15,7 @@ import javax.persistence.Table;
 import java.util.Map;
 import java.util.Objects;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @TypeDef(
         typeClass = JsonBinaryType.class,
@@ -31,16 +30,5 @@ public class AnotherProductConnection {
     @Column(columnDefinition = "jsonb")
     private Map<String, String> externalIds;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        AnotherProductConnection that = (AnotherProductConnection) o;
-        return productId != null && Objects.equals(productId, that.productId);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+    // getters, setters
 }
