@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +32,7 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
             .map(UUID::toString)
             .toList();
 
-    @BeforeEach
+    @PostConstruct
     void beforeEach() {
         uuids.forEach(this::creatProduct);
     }
@@ -68,6 +70,7 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
         String id = founded.stream().findFirst().orElseThrow().getId();
         assertTrue(uuids.contains(id));
         assertTrue(founded.iterator().next().getAttributes().size() > 0);
+        System.out.println("testProductByAttrSearch over");
     }
 
     @Test
@@ -94,7 +97,7 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
         assertTrue(founded.iterator().next().getAttributes().size() > 0);
     }
 
-    @AfterEach
+    @PreDestroy
     void tearDown() {
         uuids.forEach(repository::deleteById);
     }
