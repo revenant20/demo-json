@@ -6,6 +6,7 @@ import com.example.demojson.entity.AttributeId;
 import com.example.demojson.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -43,9 +44,33 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @Transactional
     void testProductByAttrSearch() {
         List<Product> founded = repository.findAllByAttrValueAndAttrName("3", "vcost");
         assertEquals(1, founded.size());
         assertEquals("for_test", founded.stream().findFirst().orElseThrow().getId());
+        assertTrue(founded.iterator().next().getAttributes().size() > 0);
+    }
+
+    @Test
+    void testProductByAttrSearchJoinFetch() {
+        List<Product> founded = repository.findAllByAttrValueAndAttrNameJoinFetch("3", "vcost");
+        assertEquals(1, founded.size());
+        assertEquals("for_test", founded.stream().findFirst().orElseThrow().getId());
+        assertTrue(founded.iterator().next().getAttributes().size() > 0);
+    }
+
+    /**
+     * Pay attention, that there's no limit clause in sql.
+     * That is because of eagerly loaded attributes.
+     * Don't do this at home )))
+     */
+    @Test
+    @Transactional
+    void testProductByAttrSearchJoinFetchPageable() {
+        List<Product> founded = repository.findAllByAttrValueAndAttrNameJoinFetchPageable("3", "vcost", Pageable.ofSize(1));
+        assertEquals(1, founded.size());
+        assertEquals("for_test", founded.stream().findFirst().orElseThrow().getId());
+        assertTrue(founded.iterator().next().getAttributes().size() > 0);
     }
 }
