@@ -146,4 +146,34 @@
             <column name="payload" type="varchar"/>
         </createTable>
     </changeSet>
+    <changeSet id="9" author="sazonovfm">
+        <insert tableName="products">
+            <column name="id" value="for_test"/>
+        </insert>
+        <insert tableName="attribute">
+            <column name="entity_id" value="for_test"/>
+            <column name="attr_name" value="cost"/>
+            <column name="attr_value" value="3"/>
+        </insert>
+        <insert tableName="attribute">
+            <column name="entity_id" value="for_test"/>
+            <column name="attr_name" value="bcost"/>
+            <column name="attr_value" value="3"/>
+        </insert>
+        <insert tableName="attribute">
+            <column name="entity_id" value="for_test"/>
+            <column name="attr_name" value="vcost"/>
+            <column name="attr_value" value="3"/>
+        </insert>
+        <insert tableName="attribute">
+            <column name="entity_id" value="for_test"/>
+            <column name="attr_name" value="dcost"/>
+            <column name="attr_value" value="3"/>
+        </insert>
+        <insert tableName="attribute">
+            <column name="entity_id" value="for_test"/>
+            <column name="attr_name" value="jcost"/>
+            <column name="attr_value" value="3"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
