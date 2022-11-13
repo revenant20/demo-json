@@ -4,20 +4,37 @@ import com.example.demojson.AbstractIntegrationTest;
 import com.example.demojson.entity.Attribute;
 import com.example.demojson.entity.AttributeId;
 import com.example.demojson.entity.Product;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductRepositoryTest extends AbstractIntegrationTest {
 
+    public static final String ATTR_VAL = "attr-val";
+    public static final String ATTR_NAME = "attr-name";
     @Autowired
     private ProductRepository repository;
+
+    private final List<String> uuids = Stream.of(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID())
+            .map(UUID::toString)
+            .toList();
+
+    @BeforeEach
+    void beforeEach() {
+        uuids.forEach(this::creatProduct);
+    }
+
 
     @Transactional
     @Test
@@ -46,17 +63,19 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
     @Test
     @Transactional
     void testProductByAttrSearch() {
-        List<Product> founded = repository.findAllByAttrValueAndAttrName("3", "vcost");
-        assertEquals(1, founded.size());
-        assertEquals("for_test", founded.stream().findFirst().orElseThrow().getId());
+        List<Product> founded = repository.findAllByAttrValueAndAttrName(ATTR_VAL, ATTR_NAME);
+        assertEquals(4, founded.size());
+        String id = founded.stream().findFirst().orElseThrow().getId();
+        assertTrue(uuids.contains(id));
         assertTrue(founded.iterator().next().getAttributes().size() > 0);
     }
 
     @Test
     void testProductByAttrSearchJoinFetch() {
-        List<Product> founded = repository.findAllByAttrValueAndAttrNameJoinFetch("3", "vcost");
-        assertEquals(1, founded.size());
-        assertEquals("for_test", founded.stream().findFirst().orElseThrow().getId());
+        List<Product> founded = repository.findAllByAttrValueAndAttrNameJoinFetch(ATTR_VAL, ATTR_NAME);
+        assertEquals(4, founded.size());
+        String id = founded.stream().findFirst().orElseThrow().getId();
+        assertTrue(uuids.contains(id));
         assertTrue(founded.iterator().next().getAttributes().size() > 0);
     }
 
@@ -68,9 +87,30 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
     @Test
     @Transactional
     void testProductByAttrSearchJoinFetchPageable() {
-        List<Product> founded = repository.findAllByAttrValueAndAttrNameJoinFetchPageable("3", "vcost", Pageable.ofSize(1));
+        List<Product> founded = repository.findAllByAttrValueAndAttrNameJoinFetchPageable(ATTR_VAL, ATTR_NAME, Pageable.ofSize(1));
         assertEquals(1, founded.size());
-        assertEquals("for_test", founded.stream().findFirst().orElseThrow().getId());
+        String id = founded.stream().findFirst().orElseThrow().getId();
+        assertTrue(uuids.contains(id));
         assertTrue(founded.iterator().next().getAttributes().size() > 0);
+    }
+
+    @AfterEach
+    void tearDown() {
+        uuids.forEach(repository::deleteById);
+    }
+
+    private void creatProduct(String uuid) {
+        var entity = new Product();
+        entity.setId(uuid);
+        entity.setName("test-name-" + uuid);
+        entity.setAttributes(new ArrayList<>());
+        var attribute = new Attribute();
+        var attributeId = new AttributeId();
+        attributeId.setEntityId(entity);
+        attributeId.setAttrName(ATTR_NAME);
+        attribute.setAttrValue(ATTR_VAL);
+        attribute.setAttributeId(attributeId);
+        entity.getAttributes().add(attribute);
+        repository.save(entity);
     }
 }
