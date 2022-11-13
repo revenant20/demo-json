@@ -70,7 +70,12 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
         assertEquals(4, found.size());
         String id = found.stream().findFirst().orElseThrow().getId();
         assertTrue(uuids.contains(id));
-        assertTrue(found.iterator().next().getAttributes().size() > 0);
+        long count = found.stream()
+                .map(Product::getAttributes)
+                .flatMap(Collection::stream)
+                .peek(System.out::println)
+                .count();
+        assertEquals(12, count);
     }
 
     @Test
@@ -80,10 +85,12 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
         String id = found.stream().findFirst().orElseThrow().getId();
         assertTrue(uuids.contains(id));
         assertTrue(found.iterator().next().getAttributes().size() > 0);
-        found.stream()
+        long count = found.stream()
                 .map(Product::getAttributes)
                 .flatMap(Collection::stream)
-                .forEach(System.out::println);
+                .peek(System.out::println)
+                .count();
+        assertEquals(4, count);
     }
 
     /**
@@ -99,6 +106,12 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
         String id = found.stream().findFirst().orElseThrow().getId();
         assertTrue(uuids.contains(id));
         assertTrue(found.iterator().next().getAttributes().size() > 0);
+        long count = found.stream()
+                .map(Product::getAttributes)
+                .flatMap(Collection::stream)
+                .peek(System.out::println)
+                .count();
+        assertEquals(3, count);
     }
 
     private void creatProduct(String uuid) {

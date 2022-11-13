@@ -32,10 +32,7 @@ public interface ProductRepository
     select
       p
     from
-    """
-    +  " Product p join fetch p.attributes as atr "
-//    +  " Product p join p.attributes as atr "
-    + """        
+      Product p join fetch p.attributes as atr
     where
           atr.attrValue = :attrValue
       and atr.attributeId.attrName = :attrName
@@ -49,10 +46,7 @@ public interface ProductRepository
     select
       p
     from
-    """
-    +  " Product p join fetch p.attributes as atr "
-//    +  " Product p join p.attributes as atr "
-    + """        
+      Product p join p.attributes as atr
     where
           atr.attrValue = :attrValue
       and atr.attributeId.attrName = :attrName
