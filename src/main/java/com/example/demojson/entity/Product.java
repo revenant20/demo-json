@@ -31,6 +31,7 @@ public class Product {
             , mappedBy = "attributeId.entityId"
             , orphanRemoval = true
     )
+    @ToString.Exclude
     private List<Attribute> attributes;
 
     // getters, setters

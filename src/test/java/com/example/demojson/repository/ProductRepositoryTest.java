@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -79,6 +80,10 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
         String id = found.stream().findFirst().orElseThrow().getId();
         assertTrue(uuids.contains(id));
         assertTrue(found.iterator().next().getAttributes().size() > 0);
+        found.stream()
+                .map(Product::getAttributes)
+                .flatMap(Collection::stream)
+                .forEach(System.out::println);
     }
 
     /**
@@ -108,6 +113,19 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
         attribute.setAttrValue(ATTR_VAL);
         attribute.setAttributeId(attributeId);
         entity.getAttributes().add(attribute);
+        createAttr(entity);
         repository.save(entity);
+    }
+
+    private static void createAttr(Product entity) {
+        for (int i = 0; i < 2; i++) {
+            var attribute = new Attribute();
+            var attributeId = new AttributeId();
+            attributeId.setEntityId(entity);
+            attributeId.setAttrName(ATTR_NAME + i);
+            attribute.setAttrValue(ATTR_VAL + i);
+            attribute.setAttributeId(attributeId);
+            entity.getAttributes().add(attribute);
+        }
     }
 }
