@@ -9,5 +9,10 @@
         "value": 100
       }
     }
+  },
+  {
+    "event": {
+      "type": "update"
+    }
   }
 ]

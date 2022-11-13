@@ -19,4 +19,11 @@ public interface AppRepository extends JpaRepository<App, String> {
 //            value = "select * from app where additional_data #> '{event,type}' = :type")
 //    @Query(nativeQuery = true, value = "select * from app where additional_data #> '{event,type}' = '\"update\"'")
     List<App> findAppWithEventType(@Param("type") String type);
+
+    @Query(value = """
+            select * from app where external_data @> :json \\:\\:jsonb
+            """,
+    nativeQuery = true)
+    List<App> findAllWithWriteJson(@Param("json") String json);
+
 }

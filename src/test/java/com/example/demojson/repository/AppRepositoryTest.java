@@ -61,6 +61,16 @@ public class AppRepositoryTest extends AbstractIntegrationTest {
                 });
     }
 
+    @Test
+    void testSearchApps() {
+        List<App> founded = repository.findAllWithWriteJson("{\n" +
+                                                                     "    \"event\": {\n" +
+                                                                     "      \"type\": \"update\"\n" +
+                                                                     "    }\n" +
+                                                                     "  }");
+        assertEquals(1, founded.size());
+    }
+
     @AfterEach
     void tearDown() {
         repository.deleteById("asdfg");
