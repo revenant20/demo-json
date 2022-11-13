@@ -26,9 +26,6 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
     @Autowired
     private ProductRepository repository;
 
-    @Autowired
-    private AttributeRepository attributeRepository;
-
     private static final List<String> uuids = Stream.of(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID())
             .map(UUID::toString)
             .toList();
