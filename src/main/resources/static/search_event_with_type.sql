@@ -1,7 +1,7 @@
 select *
-from app
+from apps
 where external_data #> '{event,type}' = '"update"'::jsonb;
 
 select external_data
-from app
+from apps
 where external_data -> 'event' ? 'type';

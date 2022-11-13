@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Getter
@@ -22,6 +23,7 @@ import java.util.Objects;
         typeClass = JsonBinaryType.class,
         defaultForType = JsonNode.class
 )
+@Table(name = "apps")
 public class App {
 
     @Id
