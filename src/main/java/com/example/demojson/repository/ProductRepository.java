@@ -9,13 +9,21 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductRepository extends JpaRepository<Product, String> {
+public interface ProductRepository
+        extends JpaRepository<Product, String> {
     Optional<Product> findByAttributesContaining(Attribute attribute);
 
     @Query(value = """
-    select p from Product p join p.attributes as atr 
-    where atr.attrValue = :attrValue and atr.attributeId.attrName = :attrName
+    select
+      p
+    from
+      Product p join p.attributes as atr
+    where
+          atr.attrValue = :attrValue
+      and atr.attributeId.attrName = :attrName
     """)
-    List<Product> findAllByAttrValueAndAttrName(@Param("attrValue") String attrValue,
-                                                @Param("attrName") String attrName);
+    List<Product> findAllByAttrValueAndAttrName(
+            @Param("attrValue") String attrValue,
+            @Param("attrName") String attrName
+    );
 }
