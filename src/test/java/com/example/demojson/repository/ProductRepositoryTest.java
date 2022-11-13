@@ -4,22 +4,20 @@ import com.example.demojson.AbstractIntegrationTest;
 import com.example.demojson.entity.Attribute;
 import com.example.demojson.entity.AttributeId;
 import com.example.demojson.entity.Product;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductRepositoryTest extends AbstractIntegrationTest {
 
@@ -28,13 +26,18 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
     @Autowired
     private ProductRepository repository;
 
-    private final List<String> uuids = Stream.of(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID())
+    @Autowired
+    private AttributeRepository attributeRepository;
+
+    private static final List<String> uuids = Stream.of(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID())
             .map(UUID::toString)
             .toList();
 
     @PostConstruct
     void beforeEach() {
-        uuids.forEach(this::creatProduct);
+        if (!repository.existsById(uuids.stream().findFirst().orElseThrow())) {
+            uuids.forEach(this::creatProduct);
+        }
     }
 
 
@@ -65,21 +68,20 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
     @Test
     @Transactional
     void testProductByAttrSearch() {
-        List<Product> founded = repository.findAllByAttrValueAndAttrName(ATTR_VAL, ATTR_NAME);
-        assertEquals(4, founded.size());
-        String id = founded.stream().findFirst().orElseThrow().getId();
+        List<Product> found = repository.findAllByAttrValueAndAttrName(ATTR_VAL, ATTR_NAME);
+        assertEquals(4, found.size());
+        String id = found.stream().findFirst().orElseThrow().getId();
         assertTrue(uuids.contains(id));
-        assertTrue(founded.iterator().next().getAttributes().size() > 0);
-        System.out.println("testProductByAttrSearch over");
+        assertTrue(found.iterator().next().getAttributes().size() > 0);
     }
 
     @Test
     void testProductByAttrSearchJoinFetch() {
-        List<Product> founded = repository.findAllByAttrValueAndAttrNameJoinFetch(ATTR_VAL, ATTR_NAME);
-        assertEquals(4, founded.size());
-        String id = founded.stream().findFirst().orElseThrow().getId();
+        List<Product> found = repository.findAllByAttrValueAndAttrNameJoinFetch(ATTR_VAL, ATTR_NAME);
+        assertEquals(4, found.size());
+        String id = found.stream().findFirst().orElseThrow().getId();
         assertTrue(uuids.contains(id));
-        assertTrue(founded.iterator().next().getAttributes().size() > 0);
+        assertTrue(found.iterator().next().getAttributes().size() > 0);
     }
 
     /**
@@ -90,16 +92,11 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
     @Test
     @Transactional
     void testProductByAttrSearchJoinFetchPageable() {
-        List<Product> founded = repository.findAllByAttrValueAndAttrNameJoinFetchPageable(ATTR_VAL, ATTR_NAME, Pageable.ofSize(1));
-        assertEquals(1, founded.size());
-        String id = founded.stream().findFirst().orElseThrow().getId();
+        List<Product> found = repository.findAllByAttrValueAndAttrNameJoinFetchPageable(ATTR_VAL, ATTR_NAME, Pageable.ofSize(1));
+        assertEquals(1, found.size());
+        String id = found.stream().findFirst().orElseThrow().getId();
         assertTrue(uuids.contains(id));
-        assertTrue(founded.iterator().next().getAttributes().size() > 0);
-    }
-
-    @PreDestroy
-    void tearDown() {
-        uuids.forEach(repository::deleteById);
+        assertTrue(found.iterator().next().getAttributes().size() > 0);
     }
 
     private void creatProduct(String uuid) {
