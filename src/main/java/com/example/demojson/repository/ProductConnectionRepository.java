@@ -11,10 +11,8 @@ public interface ProductConnectionRepository extends JpaRepository<ProductConnec
     @Query("""
     select
        p
-    from 
-       ProductConnection p fetch all properties 
-    """
-
-    )
+    from
+       ProductConnection p fetch all properties
+    """)
     List<ProductConnection> findAllEagerLoad(Pageable page);
 }

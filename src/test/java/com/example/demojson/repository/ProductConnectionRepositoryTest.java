@@ -20,8 +20,8 @@ class ProductConnectionRepositoryTest extends AbstractIntegrationTest {
     @Transactional
     void testExists() {
         ProductConnection productConnection = repository.findById("qwerty").orElseThrow();
-        assertEquals("SUPER_ZAIM_140", productConnection.getExternalIds().getHuttInc());
-        assertEquals("MEGA_LOAN", productConnection.getExternalIds().getTradeFed());
+        assertEquals("BEST_PHONE", productConnection.getExternalIds().getHuttInc());
+        assertEquals("ULTRA_PHONE", productConnection.getExternalIds().getTradeFed());
     }
 
     @Test
