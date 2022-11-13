@@ -1,7 +1,15 @@
-select *
-from apps
-where external_data #> '{event,type}' = '"update"'::jsonb;
+select
+    *
+from
+    apps
+where
+    external_data #>
+    '{event,type}' = '"update"';
 
-select external_data
-from apps
-where external_data -> 'event' ? 'type';
+select
+    *
+from
+    apps
+where
+    external_data ->
+    'event' ? 'type';
