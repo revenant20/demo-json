@@ -43,9 +43,9 @@ class ProductRepositoryTest extends AbstractIntegrationTest {
     }
 
     @Test
-    void testProductByAtrrSearch() {
+    void testProductByAttrSearch() {
         List<Product> founded = repository.findAllByAttrValueAndAttrName("3", "vcost");
-        assertEquals(1,founded.size());
+        assertEquals(1, founded.size());
         assertEquals("for_test", founded.stream().findFirst().orElseThrow().getId());
     }
 }
